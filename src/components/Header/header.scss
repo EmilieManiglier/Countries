@@ -1,0 +1,21 @@
+@import 'src/styles/vars';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+
+  .title {
+    font-weight: $font-weight-bold;
+  }
+
+  .switch {
+    background-color: transparent;
+    border: none;
+    font-size: 1em;
+
+    .fa-moon {
+      padding-right: 0.5rem;
+    }
+  }
+}
