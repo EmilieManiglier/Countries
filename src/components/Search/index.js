@@ -1,15 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './search.scss';
 
-const Search = () => (
+const Search = ({ search, updateSearch, handleSubmit }) => (
   <div className="search-select">
-    <form className="search-country">
+    <form
+      className="search-country"
+      onSubmit={(event) => {
+        event.preventDefault();
+        handleSubmit();
+      }}
+    >
       <input
         type="text"
         name="search"
         className="search-country-input"
         placeholder="Search for a country..."
+        value={search}
+        onChange={(event) => {
+          updateSearch(event.currentTarget.value);
+        }}
       />
       <i className="fas fa-search" />
     </form>
@@ -28,5 +39,11 @@ const Search = () => (
     </select>
   </div>
 );
+
+Search.propTypes = {
+  search: PropTypes.string.isRequired,
+  updateSearch: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
 
 export default Search;

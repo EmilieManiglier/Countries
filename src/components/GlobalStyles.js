@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
 
   .header {
     background: ${({ theme }) => theme.header};
+    box-shadow: 0px 5px 5px ${({ theme }) => theme.body};
 
     .switch {
       color: ${({ theme }) => theme.text};
@@ -33,7 +34,6 @@ const GlobalStyles = createGlobalStyle`
 
   .card-container {
     background: ${({ theme }) => theme.header};
-    
   }
 `;
 

@@ -5,6 +5,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
 
   .title {
     font-weight: $font-weight-bold;
