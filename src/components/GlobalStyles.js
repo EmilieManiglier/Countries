@@ -9,7 +9,6 @@ const GlobalStyles = createGlobalStyle`
 
   .header {
     background: ${({ theme }) => theme.header};
-    color: ${({ theme }) => theme.text};
 
     .switch {
       color: ${({ theme }) => theme.text};
@@ -30,6 +29,11 @@ const GlobalStyles = createGlobalStyle`
   .select-region {
     background: ${({ theme }) => theme.header};
     color: ${({ theme }) => theme.text};
+  }
+
+  .card-container {
+    background: ${({ theme }) => theme.header};
+    
   }
 `;
 

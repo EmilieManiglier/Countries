@@ -8,6 +8,7 @@ import useDarkMode from 'src/components/useDarkMode';
 // == import components
 import Header from 'src/components/Header';
 import Search from 'src/components/Search';
+import Flags from 'src/components/Flags';
 
 import './styles.scss';
 
@@ -28,6 +29,7 @@ const App = () => {
       <div className="app">
         <Header theme={theme} toggleTheme={themeToggler} />
         <Search />
+        <Flags />
       </div>
     </ThemeProvider>
   );
