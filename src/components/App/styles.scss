@@ -1,0 +1,15 @@
+.app {
+  .error {
+    margin: auto;
+    padding: 2rem;
+    width: fit-content;
+    background-color: #f8d7da;
+    color: #721c2a;
+    border: 1px solid #721c2a;
+    border-radius: 0.5rem;
+
+    &-name {
+      font-weight: bold;
+    }
+  }
+}

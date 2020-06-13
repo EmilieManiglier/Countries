@@ -33,16 +33,21 @@ const App = () => {
   // Status of the loading, if true display the loader while we're fetching datas from the API
   const [loading, setLoading] = useState(false);
 
+  // Status of the error, if true display an error message
+  const [error, setError] = useState(false);
+
   const loadCountries = () => {
     setLoading(true);
+    setError(false);
 
     axios.get('https://restcountries.eu/rest/v2/all')
       .then((response) => {
         // console.log(response.data);
         setCountries(response.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        setError(true);
+        setCountries([]);
       })
       .finally(() => {
         setLoading(false);
@@ -51,13 +56,15 @@ const App = () => {
 
   const loadCountryFromInput = () => {
     setLoading(true);
+    setError(false);
+
     axios.get(`https://restcountries.eu/rest/v2/name/${search}`)
       .then((response) => {
-        // console.log(response.data);
         setCountries(response.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        setError(true);
+        setCountries([]);
       })
       .finally(() => {
         setLoading(false);
@@ -66,13 +73,16 @@ const App = () => {
 
   const loadCountriesFromSelect = () => {
     setLoading(true);
+    setError(false);
+    setSearch('');
+
     axios.get(`https://restcountries.eu/rest/v2/region/${region}`)
       .then((response) => {
-        // console.log(response.data);
         setCountries(response.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        setError(true);
+        setCountries([]);
       })
       .finally(() => {
         setLoading(false);
@@ -115,8 +125,12 @@ const App = () => {
           updateRegion={setRegion}
           handleSelect={loadCountriesFromSelect}
         />
+        {error && <div className="error">Oops ! No result found for <span className="error-name">' {search} '</span> </div>}
+
         {loading && (<Loader />) }
+
         {!loading && <Flags countries={countries} nbCountries={countriesPerPage} />}
+
         <Button
           setCountriesPerPage={setCountriesPerPage}
           countriesPerPage={countriesPerPage}
