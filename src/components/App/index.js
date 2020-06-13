@@ -9,6 +9,7 @@ import useDarkMode from 'src/components/useDarkMode';
 // == import components
 import Header from 'src/components/Header';
 import Search from 'src/components/Search';
+import Loader from 'src/components/Loader';
 import Flags from 'src/components/Flags';
 import Button from 'src/components/Button';
 
@@ -29,8 +30,12 @@ const App = () => {
   // Number of countries displayed on the page
   const [countriesPerPage, setCountriesPerPage] = useState(25);
 
+  // Status of the loading, if true display the loader while we're fetching datas from the API
+  const [loading, setLoading] = useState(false);
 
   const loadCountries = () => {
+    setLoading(true);
+
     axios.get('https://restcountries.eu/rest/v2/all')
       .then((response) => {
         // console.log(response.data);
@@ -38,10 +43,14 @@ const App = () => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   const loadCountryFromInput = () => {
+    setLoading(true);
     axios.get(`https://restcountries.eu/rest/v2/name/${search}`)
       .then((response) => {
         // console.log(response.data);
@@ -49,10 +58,14 @@ const App = () => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   const loadCountriesFromSelect = () => {
+    setLoading(true);
     axios.get(`https://restcountries.eu/rest/v2/region/${region}`)
       .then((response) => {
         // console.log(response.data);
@@ -60,6 +73,9 @@ const App = () => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -99,7 +115,8 @@ const App = () => {
           updateRegion={setRegion}
           handleSelect={loadCountriesFromSelect}
         />
-        <Flags countries={countries} nbCountries={countriesPerPage} />
+        {loading && (<Loader />) }
+        {!loading && <Flags countries={countries} nbCountries={countriesPerPage} />}
         <Button
           setCountriesPerPage={setCountriesPerPage}
           countriesPerPage={countriesPerPage}

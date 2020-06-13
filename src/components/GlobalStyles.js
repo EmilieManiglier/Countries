@@ -35,6 +35,17 @@ const GlobalStyles = createGlobalStyle`
   .card-container {
     background: ${({ theme }) => theme.header};
   }
+
+  .loader {
+    .circle {
+      background: ${({ theme }) => theme.loader};
+
+    }
+
+    .loading {
+      color: ${({ theme }) => theme.loader};
+    }
+  }
 `;
 
 export default GlobalStyles;
