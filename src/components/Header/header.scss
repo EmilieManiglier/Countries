@@ -3,6 +3,7 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1.5rem 1rem;
 
   .title {
@@ -12,10 +13,21 @@
   .switch {
     background-color: transparent;
     border: none;
+    width: fit-content;
     font-size: 1em;
 
     .fa-moon {
       padding-right: 0.5rem;
+    }
+  }
+}
+
+@media screen and (max-width:767px) {
+  .header {
+    flex-direction: column;
+
+    .switch {
+      margin-top: 1rem;
     }
   }
 }

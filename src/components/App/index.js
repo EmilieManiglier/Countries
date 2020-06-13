@@ -7,6 +7,7 @@ import useDarkMode from 'src/components/useDarkMode';
 
 // == import components
 import Header from 'src/components/Header';
+import Search from 'src/components/Search';
 
 import './styles.scss';
 
@@ -26,6 +27,7 @@ const App = () => {
       <GlobalStyles />
       <div className="app">
         <Header theme={theme} toggleTheme={themeToggler} />
+        <Search />
       </div>
     </ThemeProvider>
   );

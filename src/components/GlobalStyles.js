@@ -15,6 +15,22 @@ const GlobalStyles = createGlobalStyle`
       color: ${({ theme }) => theme.text};
     }
   }
+
+  .search-select {
+    .search-country-input {
+      background: ${({ theme }) => theme.header};
+      color: ${({ theme }) => theme.input};
+      
+      &::placeholder {
+        color: ${({ theme }) => theme.text};
+      }
+    }
+  }
+
+  .select-region {
+    background: ${({ theme }) => theme.header};
+    color: ${({ theme }) => theme.text};
+  }
 `;
 
 export default GlobalStyles;
