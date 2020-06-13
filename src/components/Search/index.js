@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 
 import './search.scss';
 
-const Search = ({ search, updateSearch, handleSubmit }) => (
+const Search = ({
+  search,
+  updateSearch,
+  handleSubmit,
+  region,
+  updateRegion,
+}) => (
   <div className="search-select">
     <form
       className="search-country"
@@ -29,10 +35,14 @@ const Search = ({ search, updateSearch, handleSubmit }) => (
       name="select"
       id="select"
       className="select-region"
+      value={region}
+      onChange={(event) => {
+        updateRegion(event.currentTarget.value);
+      }}
     >
       <option value="">Filter By Region</option>
       <option value="africa">Africa</option>
-      <option value="america">America</option>
+      <option value="americas">America</option>
       <option value="asia">Asia</option>
       <option value="europe">Europe</option>
       <option value="oceania">Oceania</option>
@@ -44,6 +54,8 @@ Search.propTypes = {
   search: PropTypes.string.isRequired,
   updateSearch: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  region: PropTypes.string.isRequired,
+  updateRegion: PropTypes.func.isRequired,
 };
 
 export default Search;

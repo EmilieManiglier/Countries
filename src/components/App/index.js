@@ -20,18 +20,18 @@ const App = () => {
   // Value of the input
   const [search, setSearch] = useState('');
 
+  // Value of the select
+  const [region, setRegion] = useState('');
+
   // List of countries
   const [countries, setCountries] = useState([]);
 
   // Number of countries displayed on the page
   const [countriesPerPage, setCountriesPerPage] = useState(25);
 
-  const setInputSearch = (inputValue) => {
-    setSearch(inputValue);
-  };
 
   const loadCountries = () => {
-    axios.get('https://restcountries.eu/rest/v2/all?limit=20')
+    axios.get('https://restcountries.eu/rest/v2/all')
       .then((response) => {
         // console.log(response.data);
         setCountries(response.data);
@@ -52,13 +52,32 @@ const App = () => {
       });
   };
 
+  const loadCountriesFromSelect = () => {
+    axios.get(`https://restcountries.eu/rest/v2/region/${region}`)
+      .then((response) => {
+        // console.log(response.data);
+        setCountries(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     loadCountries();
   }, []);
 
 
+  // Load countries on select region change
+  useEffect(() => {
+    if (region !== '') {
+      loadCountriesFromSelect();
+    }
+  }, [region]);
+
+
   // ===== Dark / Light Theme =====
-  // Custom hook used which contains the chosen theme, the toggle function to switch between modes
+  // Custom hook which contains the chosen theme, the toggle function to switch between modes
   const [theme, themeToggler, mountedComponent] = useDarkMode();
 
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
@@ -74,8 +93,11 @@ const App = () => {
         <Header theme={theme} toggleTheme={themeToggler} />
         <Search
           search={search}
-          updateSearch={setInputSearch}
+          updateSearch={setSearch}
           handleSubmit={loadCountryFromInput}
+          region={region}
+          updateRegion={setRegion}
+          handleSelect={loadCountriesFromSelect}
         />
         <Flags countries={countries} nbCountries={countriesPerPage} />
         <Button
