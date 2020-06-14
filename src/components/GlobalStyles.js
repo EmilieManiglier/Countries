@@ -46,6 +46,19 @@ const GlobalStyles = createGlobalStyle`
       color: ${({ theme }) => theme.loader};
     }
   }
+
+  .link-back {
+    background: ${({ theme }) => theme.header};
+    color: ${({ theme }) => theme.text};
+    box-shadow: 0px 5px 5px ${({ theme }) => theme.body};
+  }
+
+  .border-countries {
+    .border {
+      background: ${({ theme }) => theme.header};
+      color: ${({ theme }) => theme.text};
+    }
+  }
 `;
 
 export default GlobalStyles;
