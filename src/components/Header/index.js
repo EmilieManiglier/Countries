@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import './header.scss';
 
 const Header = ({ toggleTheme, theme }) => (
   <header className="header">
-    <h1 className="title">Where in the world ?</h1>
+    <Link to="/"><h1 className="title">Where in the world ?</h1></Link>
     <button
       type="button"
       className="switch"

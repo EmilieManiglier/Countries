@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Flag = ({
@@ -9,13 +10,15 @@ const Flag = ({
   capital,
 }) => (
   <div className="card">
-    <img src={flag} alt="" />
-    <div className="card-container">
-      <h2 className="card-header">{name}</h2>
-      <p className="card-text"><span className="card-info">Population:</span> {population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
-      <p className="card-text"><span className="card-info">Region:</span> {region}</p>
-      <p className="card-text"><span className="card-info">Capital:</span> {capital}</p>
-    </div>
+    <Link to={`/${name}`}>
+      <img src={flag} alt={`Flag of ${name}`} />
+      <div className="card-container">
+        <h2 className="card-header">{name}</h2>
+        <p className="card-text"><span className="card-info">Population:</span> {population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
+        <p className="card-text"><span className="card-info">Region:</span> {region}</p>
+        <p className="card-text"><span className="card-info">Capital:</span> {capital}</p>
+      </div>
+    </Link>
   </div>
 );
 

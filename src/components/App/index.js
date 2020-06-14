@@ -1,5 +1,6 @@
 // == Import
 import React, { useState, useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import axios from 'axios';
 import { lightTheme, darkTheme } from 'src/components/Themes';
@@ -11,6 +12,7 @@ import Header from 'src/components/Header';
 import Search from 'src/components/Search';
 import Loader from 'src/components/Loader';
 import Flags from 'src/components/Flags';
+import FlagDetail from 'src/components/FlagDetail';
 import Button from 'src/components/Button';
 
 import './styles.scss';
@@ -117,24 +119,40 @@ const App = () => {
       <GlobalStyles />
       <div className="app">
         <Header theme={theme} toggleTheme={themeToggler} />
-        <Search
-          search={search}
-          updateSearch={setSearch}
-          handleSubmit={loadCountryFromInput}
-          region={region}
-          updateRegion={setRegion}
-          handleSelect={loadCountriesFromSelect}
-        />
-        {error && <div className="error">Oops ! No result found for <span className="error-name">' {search} '</span> </div>}
 
-        {loading && (<Loader />) }
+        <Switch>
+          <Route exact path="/">
+            <Search
+              search={search}
+              updateSearch={setSearch}
+              handleSubmit={loadCountryFromInput}
+              region={region}
+              updateRegion={setRegion}
+              handleSelect={loadCountriesFromSelect}
+            />
+            {error && <div className="error">Oops ! No result found for <span className="error-name">' {search} '</span> </div>}
 
-        {!loading && <Flags countries={countries} nbCountries={countriesPerPage} />}
+            {loading && (<Loader />) }
 
-        <Button
-          setCountriesPerPage={setCountriesPerPage}
-          countriesPerPage={countriesPerPage}
-        />
+            {!loading && (
+              <Flags
+                countries={countries}
+                nbCountries={countriesPerPage}
+              />
+            )}
+
+            <Button
+              setCountriesPerPage={setCountriesPerPage}
+              countriesPerPage={countriesPerPage}
+            />
+          </Route>
+
+          <Route exact path="/:name">
+            <FlagDetail countries={countries} />
+          </Route>
+        </Switch>
+
+
       </div>
     </ThemeProvider>
   );
