@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { findCountryByName, findCountryByCode, formatPopulation } from 'src/utils';
 
 import './flagDetail.scss';
 
@@ -9,9 +10,7 @@ const FlagDetail = ({ countries }) => {
   const { name } = useParams();
 
   // Search the datas of the selected country
-  const country = countries.find((singleCountry) => (
-    singleCountry.name === name
-  ));
+  const country = findCountryByName(countries, name);
 
   return (
     <div className="detail-container">
@@ -29,7 +28,7 @@ const FlagDetail = ({ countries }) => {
             <div className="detail-info">
               <ul>
                 <li className="info-li"><span className="info-label">Native Name :</span> {country.nativeName}</li>
-                <li className="info-li"><span className="info-label">Population :</span> {country.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</li>
+                <li className="info-li"><span className="info-label">Population :</span> {formatPopulation(country.population)}</li>
                 <li className="info-li"><span className="info-label">Region :</span> {country.region}</li>
                 <li className="info-li"><span className="info-label">Sub Region :</span> {country.subregion}</li>
                 <li className="info-li"><span className="info-label">Capital :</span> {country.capital}</li>
@@ -45,7 +44,12 @@ const FlagDetail = ({ countries }) => {
                 <li className="info-li">
                   <span className="info-label">Languages :</span>
                   {country.languages.map((language, index) => (
-                    <span key={language.name}>{(index ? ', ' : '') + language.name} </span>
+                    <span key={language.name}>
+                      {
+                        // Separate each name with a comma except for the last one
+                        (index ? ', ' : '') + language.name
+                      }
+                    </span>
                   ))}
                 </li>
               </ul>
@@ -54,9 +58,20 @@ const FlagDetail = ({ countries }) => {
             <div className="detail-info borders">
               <span className="info-label">Border Countries :</span>
               <div className="border-countries">
-                {country.borders.map((border) => (
-                  <div className="border" key={border}>{border}</div>
-                ))}
+                {country.borders.map((border) => {
+                  // Get country full name by its 3 letters code
+                  const countryByCode = findCountryByCode(countries, border).name;
+                  return (
+                    <Link
+                      to={countryByCode}
+                      className="border"
+                      key={border}
+                      title={countryByCode}
+                    >
+                      {border}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>

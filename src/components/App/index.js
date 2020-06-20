@@ -92,7 +92,6 @@ const App = () => {
     loadCountries();
   }, []);
 
-
   // Load countries on select region change
   useEffect(() => {
     if (region !== '') {
