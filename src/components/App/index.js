@@ -33,13 +33,12 @@ const App = () => {
   const [countriesPerPage, setCountriesPerPage] = useState(25);
 
   // Status of the loading, if true display the loader while we're fetching datas from the API
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Status of the error, if true display an error message
   const [error, setError] = useState(false);
 
   const loadCountries = () => {
-    setLoading(true);
     setError(false);
 
     axios.get('https://restcountries.eu/rest/v2/all')
@@ -57,7 +56,6 @@ const App = () => {
   };
 
   const loadCountryFromInput = () => {
-    setLoading(true);
     setError(false);
 
     axios.get(`https://restcountries.eu/rest/v2/name/${search}`)
@@ -74,7 +72,6 @@ const App = () => {
   };
 
   const loadCountriesFromSelect = () => {
-    setLoading(true);
     setError(false);
     setSearch('');
 
@@ -106,6 +103,7 @@ const App = () => {
 
   // ===== Dark / Light Theme =====
   // Custom hook which contains the chosen theme, the toggle function to switch between modes
+  // and the mount status of the component
   const [theme, themeToggler, mountedComponent] = useDarkMode();
 
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
@@ -135,23 +133,23 @@ const App = () => {
             {loading && (<Loader />) }
 
             {!loading && (
-              <Flags
-                countries={countries}
-                nbCountries={countriesPerPage}
-              />
+              <>
+                <Flags
+                  countries={countries}
+                  nbCountries={countriesPerPage}
+                />
+                <Button
+                  setCountriesPerPage={setCountriesPerPage}
+                  countriesPerPage={countriesPerPage}
+                />
+              </>
             )}
-
-            <Button
-              setCountriesPerPage={setCountriesPerPage}
-              countriesPerPage={countriesPerPage}
-            />
           </Route>
 
           <Route exact path="/:name">
-            <FlagDetail countries={countries} />
+            {!loading && <FlagDetail countries={countries} />}
           </Route>
         </Switch>
-
 
       </div>
     </ThemeProvider>
