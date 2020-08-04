@@ -29,9 +29,6 @@ const App = () => {
   // List of countries
   const [countries, setCountries] = useState([]);
 
-  // List of countries
-  const [searchCountries, setSearchCountries] = useState([]);
-
   // Number of countries displayed on the page
   const [countriesPerPage, setCountriesPerPage] = useState(25);
 
@@ -41,6 +38,7 @@ const App = () => {
   // Status of the error, if true display an error message
   const [error, setError] = useState(false);
 
+  // Load all countries for home page
   const loadCountries = () => {
     setError(false);
 
@@ -58,22 +56,31 @@ const App = () => {
       });
   };
 
+  // Load countries according to inout text
   const loadCountryFromInput = () => {
     setError(false);
 
+    // Send request
     axios.get(`https://restcountries.eu/rest/v2/name/${search}`)
       .then((response) => {
+        // Store response array (== list countries) into the state
         setCountries(response.data);
       })
       .catch(() => {
+        // If there are errors, we enter into the catch()
+        // Display an error message
         setError(true);
+        // Empty countries array
         setCountries([]);
       })
       .finally(() => {
+        // Whether there was a success or an error response from APÏ, finally() will be executed
+        // Set loader to false in order to hide it
         setLoading(false);
       });
   };
 
+  // Load countries according to select region
   const loadCountriesFromSelect = () => {
     setError(false);
     setSearch('');
@@ -91,11 +98,12 @@ const App = () => {
       });
   };
 
+  // Load countries when App is mounted for the first time
   useEffect(() => {
     loadCountries();
   }, []);
 
-  // Load countries on select region change
+  // Load countries on select area change
   useEffect(() => {
     if (region !== '') {
       loadCountriesFromSelect();
