@@ -59,14 +59,20 @@ const FlagDetail = ({ countries }) => {
               <span className="info-label">Border Countries :</span>
               <div className="border-countries">
                 {country.borders.map((border) => {
+                  let countryByCode = '';
                   // Get country full name by its 3 letters code
-                  const countryByCode = findCountryByCode(countries, border).name;
+                  countryByCode = findCountryByCode(countries, border);
+
+                  if (countryByCode === undefined) {
+                    countryByCode = '';
+                  }
+
                   return (
                     <Link
-                      to={countryByCode}
+                      to={countryByCode.name || ''}
                       className="border"
                       key={border}
-                      title={countryByCode}
+                      title={countryByCode.name || ''}
                     >
                       {border}
                     </Link>

@@ -29,6 +29,9 @@ const App = () => {
   // List of countries
   const [countries, setCountries] = useState([]);
 
+  // List of countries
+  const [searchCountries, setSearchCountries] = useState([]);
+
   // Number of countries displayed on the page
   const [countriesPerPage, setCountriesPerPage] = useState(25);
 
@@ -98,7 +101,6 @@ const App = () => {
       loadCountriesFromSelect();
     }
   }, [region]);
-
 
   // ===== Dark / Light Theme =====
   // Custom hook which contains the chosen theme, the toggle function to switch between modes

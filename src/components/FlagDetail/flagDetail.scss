@@ -114,7 +114,15 @@
           display: block !important;
 
           .border-countries {
-            margin-top: 1rem;
+            margin: 1rem auto;
+            flex-direction: column;
+            text-align: center;
+            width: 100%;
+
+            & .border {
+              display: block;
+              margin: 0.8rem;
+            }
           }
         }
       }
