@@ -17,7 +17,7 @@ const FlagDetail = ({ countries }) => {
       <Link to="/" className="link-back">Back</Link>
 
       <div className="detail-wrapper">
-        <div>
+        <div className="detail-flag-container">
           <img src={country.flag} alt="" className="detail-flag" />
         </div>
 
